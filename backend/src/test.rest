@@ -1,0 +1,15 @@
+###
+
+POST  http://140.103.82.206:8080/login
+Content-Type: application/json
+
+{
+    "email": "aj@gmail.com",
+    "password": "keith"
+}
+
+
+###
+
+GET http://140.103.82.206:8080/points/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6eyJpZCI6Mn0sImlhdCI6MTc3NzQxNDQwNCwiZXhwIjoxNzc3NDE0NDM0fQ.SJiNVSe-jT3V8C1AhytwAAL4iOV51Y01tcTQrzLlmqs
