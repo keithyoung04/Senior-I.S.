@@ -1,4 +1,4 @@
-//import pool from '../models/db.js';
+
 
 const { pool } = require ("../models/db.js");
 
@@ -27,10 +27,8 @@ const loginUserService = async (email, password) => {
     return result.rows[0];
 }
 
-
 const getAllPointsService = async () => {
     const result = await pool.query("SELECT id, level, latitude, longitude, description FROM pinpoint")
-    //console.log(result.rows)
     return result.rows;
 }
 

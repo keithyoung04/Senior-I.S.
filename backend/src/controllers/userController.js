@@ -54,25 +54,33 @@ const loginUser = async (req, res, next) => {
             const id = await getUserByIDService(email)
             req.params.id = id
             console.log("req.params.id: ", req.params.id)
-            const accessToken = jwt.sign({id}, process.env.ACCESS_TOKEN_SECRET, {expiresIn: '30s'})
-            const refreshToken = jwt.sign(id, process.env.REFRESH_TOKEN_SECRET)
+            const accessToken = jwt.sign({id}, process.env.ACCESS_TOKEN_SECRET)
+            const refreshToken = jwt.sign({id}, process.env.REFRESH_TOKEN_SECRET)
             console.log("What is in access token: ", id)
             console.log('token value: ', accessToken);
-            res.json({ accessToken : accessToken})
+            res.json({ accessToken : accessToken , refreshToken : refreshToken})
             
         } catch (error) {
             next(error);
         }
        
     }
-
-/*const createToken = async () => {
+// Creates another token from refresh token
+const createRefreshToken = async (req, res, next) => {
     const refreshToken = req.body.token;
     if (refreshToken == null) return res.sendStatus(401);
-    //if(!refreshToken) return res.sendStatus(403) check refresh token in client
+    if(!refreshToken) return res.sendStatus(403) //check refresh token on frontend with secure store
+    jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, id) => {
+        console.log("id in createRefreshToken: ", id.id.id)
+        if(err) return res.sendStatus(403);
+        const accessToken = jwt.sign(id, process.env.ACCESS_TOKEN_SECRET)
+        console.log("Generated accessToken from refreshToken: ", accessToken);
+        res.json({accessToken: accessToken})
+    })
+
 
 }
-*/
+
 
 
 
@@ -116,5 +124,6 @@ module.exports = {
     createUser,
     getAllPoints,
     createPoints,
-    loginUser
+    loginUser,
+    createRefreshToken
 }

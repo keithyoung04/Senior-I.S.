@@ -1,6 +1,6 @@
 ###
 
-POST  http://140.103.82.206:8080/login
+POST  http://192.168.1.95:8080/login
 Content-Type: application/json
 
 {
@@ -11,5 +11,12 @@ Content-Type: application/json
 
 ###
 
-GET http://140.103.82.206:8080/points/2
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6eyJpZCI6Mn0sImlhdCI6MTc3NzQxNDQwNCwiZXhwIjoxNzc3NDE0NDM0fQ.SJiNVSe-jT3V8C1AhytwAAL4iOV51Y01tcTQrzLlmqs
+GET http://192.168.1.95:8080/points/2
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6eyJpZCI6Mn0sImlhdCI6MTc3OTUyOTgzMSwiZXhwIjoxNzc5NTI5ODY2fQ.RrfKVvoKalOa2-zjpGigq9z2NqR7tULxWDn3y7YUo40
+###
+POST http://192.168.1.95:8080/token
+Content-Type: application/json
+
+{
+    "token" : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6eyJpZCI6Mn0sImlhdCI6MTc3OTUwMjYxMX0.cHQctfSDHAXQnfdrcRht3xRYH2h4bDuuDUZpbRWnRgk"
+}

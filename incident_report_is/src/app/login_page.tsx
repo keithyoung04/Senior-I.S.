@@ -47,18 +47,19 @@ export default function Login () {
 
     return(
        <View style={styles.container}>
-        <Text>login page</Text>
+        <Text>Login</Text>
 
         <Controller
             name="email"
             control={control}
             render={({field: {onChange, onBlur, value}}) => (
             <TextInput 
-            placeholder="Enter Your Email"
             style={styles.input}
             value={value}
             onBlur={onBlur}
             onChangeText={onChange}
+            placeholderTextColor={'grey'}
+            placeholder="Enter Your Email"
             />
         )}
         />
@@ -68,15 +69,18 @@ export default function Login () {
             control={control}
             render={({field: {onChange, onBlur, value}}) => (
             <TextInput 
-            placeholder="Enter Your Password"
             style={styles.input}
             value={value}
             onBlur={onBlur}
             onChangeText={onChange}
+            placeholderTextColor={'grey'}
+            placeholder="Enter Your Password"
             />
         )}
         />
+        <View style={{borderWidth: 1, margin: 20, borderRadius: '60%', width:'40%'}}>
         <Button title="Submit" onPress={handleSubmit(onSubmit)}/>
+        </View>
        </View>
     );
 }

@@ -8,7 +8,7 @@ module.exports = (io, socket) => {
     const sendData = async () => {
 try {
     const response = await getAllPointsService();
-    const socketemitter = await socket.emitWithAck("hello", response);
+    const socketemitter = await socket.emitWithAck("markers", response);
     console.log(socketemitter.status);
     
 } catch (error) {

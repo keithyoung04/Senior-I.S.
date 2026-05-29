@@ -3,12 +3,16 @@ const jwt = require("jsonwebtoken");
 //import express from "express";
 //import { getAllUsersService, getUserByIDService } from "../models/userModels.js";
 //const { getAllUsersService, getUserByIDService, loginUserService } = require("../models/userModels.js");
-const {getAllUsers, getAllPoints, createPoints, loginUser, createUser} = require("../controllers/userController.js")
-//const {sendData} = require("../controllers/socketController.js");
+const {getAllUsers, getAllPoints, createPoints, loginUser, createUser, createRefreshToken} = require("../controllers/userController.js")
+const {sendData} = require("../controllers/socketController.js");
 //const { fakeFunction } = require("../config/index.js");
 const router = express.Router();
 
-// On the frontend send request to get user by ID and then store the ID bewteen pages once it is verified
+/*  On the frontend send request to get user by ID and then store the ID bewteen pages once it is verified
+- authenticates token on every request from the client to the server as middleware
+- checks id sent in the payload to verified the request is authenticated and varified to perform task on the route
+
+*/
 const authenticateToken = (req, res, next) => {
     const authHeader = req.headers.authorization || req.headers.Authorization;
     console.log("authHeader variable: ", authHeader)
@@ -17,7 +21,7 @@ const authenticateToken = (req, res, next) => {
     console.log("token in jwt.verify: ", token)
     if (token == null) return res.sendStatus(401);
     jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, id) => {
-        console.log("id is jwt.verify: ", id)
+        console.log("payload from jwt.verify: ", id)
         console.log("req.params.id: ", req.params.id)
         if (err) return res.sendStatus(403);
         const idCheck = req.params.id;
@@ -41,13 +45,13 @@ const authenticateToken = (req, res, next) => {
 }
 
 router.post("/login", loginUser)
-router.get("/users", getAllUsers);
 router.get("/points/:id", authenticateToken, getAllPoints);
-//router.get("/users/:id", getUserByIDService);
 router.post("/register", createUser);
-router.post("/login", loginUser)
 router.post("/users", createPoints)
+
+
+
 //router.post("/token", );
-
-
+//router.post("/token", createRefreshToken);
+//router.get("/users", getAllUsers);
 module.exports = router
